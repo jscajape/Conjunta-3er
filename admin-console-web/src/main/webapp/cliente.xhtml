@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/templates/plantilla.xhtml">
+        <ui:define name="contenido">
+            <h:form>
+                <p:panel header="Seleccione un Cliente" style="margin-bottom:10px;">
+                    <h:panelGrid columns="1" cellpadding="5">
+                        <p:outputLabel for="cliente" value="Clientes" />
+                        <p:selectOneMenu id="cliente" value="#{clienteBean.cliente}" style="width:150px">
+                            <f:selectItems var="clientes" itemLabel="#{clientes.razonSocial}" value="#{clienteBean.clienteList}" itemValue="#{clientes.ruc}"  />
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                    <p:commandButton value="Buscar" icon="ui-icon-check"/>
+                </p:panel>
+                <p:panel>
+                    <p:dataTable var="bot" value="#{productoBean.productos}" 
+                                 selectionMode="single" selection="#{productoBean.productoSel}" rowKey="#{producto.codigo}">
+                        <p:ajax event="rowSelect" update="@form" />
+                        <p:ajax event="rowUnselect" update="@form" />
+                        <p:column headerText="Codigo">
+                            <h:outputText value="#{producto.codigo}" />
+                        </p:column>
+                        <p:column headerText="Nombre">
+                            <h:outputText value="#{producto.nombre}" />
+                        </p:column>
+                        <p:column headerText="Descripcion">
+                            <h:outputText value="#{producto.descripcion}" />
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
